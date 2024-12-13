@@ -55,32 +55,30 @@ class SendOTPService {
     Map<String, String> data = {
       'user_mobile': mobile,
     };
-    //Loading Effect
-    // showDialog(
-    //     context: context,
-    //     barrierDismissible: false,
-    //     builder: (BuildContext context) {
-    //       return const Dialog(
-    //         backgroundColor: Colors.transparent,
-    //         child: Row(
-    //             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-    //             children: [
-    //               SpinKitThreeInOut(
-    //                 color: Colors.black,
-    //               ),
-    //             ]),
-    //       );
-    //     });
+   // Loading Effect
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return const Dialog(
+            backgroundColor: Colors.transparent,
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  SpinKitThreeInOut(
+                    color: Colors.black,
+                  ),
+                ]),
+          );
+        });
     // Send HTTP POST request to the API
     try {
-      print("-------------hiiiiiiiiiiiiiiiiiii");
-      print("${dotenv.env["API_LINK"]}/otp_request_todoa.php");
+
       final response = await http.post(
-        Uri.parse('${dotenv.env["API_LINK"]}/otp_request_todoa.php'),
+        Uri.parse('${dotenv.env["API_LINK"]}/request_otp_todoa.php'),
         body: data,
       );
 
-      print(response);
 
       var body = response.body;
       final statusCode = _extractValue(body, 'Status code').trim();
@@ -98,9 +96,9 @@ class SendOTPService {
 
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('OTP sent successfully')),
-        );
+        );return;
       } else if (result == "E1351") {
-        Navigator.pop(context);
+
         //OTP Verification Page
         Navigator.push(context, MaterialPageRoute(builder: (_) {
           return const TodoHomePage();
@@ -108,27 +106,31 @@ class SendOTPService {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Welcome Back!')),
         );
+        return;
       } else {
-        print(response.body); // Error occurred
+
         Navigator.pop(context);
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
               content: Text('Please Enter a valid Robi/Airtel Number')),
         );
+        return;
       }
     } on SocketException catch (e) {
       Navigator.pop(context);
-      print("Network Issue: $e");
+
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Network Issue ${e.toString()}')),
+        SnackBar(content: Text('Network Issue')),
       );
+      return;
     } catch (e) {
       Navigator.pop(context);
-      print(e);
+
       // Handle error in case of network issues
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error: $e')),
+        SnackBar(content: Text('Something went wrong')),
       );
+      return;
     }
   }
 }

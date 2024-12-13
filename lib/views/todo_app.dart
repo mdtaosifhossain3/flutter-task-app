@@ -69,7 +69,7 @@ class _TodoHomePageState extends State<TodoHomePage> {
   // Function to send a message to the SMS app
   Future<void> sendStopMessage() async {
     const phoneNumber = '21213';
-    const message = 'STOP chtai';
+    const message = 'STOP todoa';
 
     final Uri smsUri = Uri(
       scheme: 'sms',
@@ -118,66 +118,70 @@ class _TodoHomePageState extends State<TodoHomePage> {
                       ],
                     ),
                   ),
-                  // Positioned(
-                  //     top: 20,
-                  //     right: 1,
-                  //     child: Builder(builder: (context) {
-                  //       return IconButton(
-                  //           onPressed: () async {
-                  //             await showPopover(
-                  //                 context: context,
-                  //                 bodyBuilder: (context) => Column(
-                  //                       children: [
-                  //                         TextButton(
-                  //                             onPressed: () async {
-                  //                               await sendStopMessage();
-                  //                               await Future.delayed(
-                  //                                   const Duration(seconds: 6));
-                  //                               Navigator.push(context,
-                  //                                   MaterialPageRoute(
-                  //                                       builder: (_) {
-                  //                                 return OtpSendView();
-                  //                               }));
-                  //                             },
-                  //                             child: const Text(
-                  //                               "Unsubscribed",
-                  //                               style: TextStyle(
-                  //                                   color: Colors.red),
-                  //                             ))
-                  //                       ],
-                  //                     ),
-                  //                 width: 120,
-                  //                 height: 50,
-                  //                 backgroundColor: blackColor,
-                  //                 direction: PopoverDirection.bottom);
-                  //           },
-                  //           icon: const Icon(
-                  //             Icons.more_vert,
-                  //             color: whiteColor,
-                  //           ));
-                  //     }))
+                  Positioned(
+                      top: 20,
+                      right: 1,
+                      child: Builder(builder: (context) {
+                        return IconButton(
+                            onPressed: () async {
+                              await showPopover(
+                                  context: context,
+                                  bodyBuilder: (context) => Column(
+                                        children: [
+                                          TextButton(
+                                              onPressed: () async {
+                                                await sendStopMessage();
+                                                await Future.delayed(
+                                                    const Duration(seconds: 6));
+                                                Navigator.push(context,
+                                                    MaterialPageRoute(
+                                                        builder: (_) {
+                                                  return OtpSendView();
+                                                }));
+                                              },
+                                              child: const Text(
+                                                "Unsubscribe",
+                                                style: TextStyle(
+                                                    color: Colors.red),
+                                              ))
+                                        ],
+                                      ),
+                                  width: 120,
+                                  height: 35,
+                                  backgroundColor: blackColor,
+                                  direction: PopoverDirection.bottom);
+                            },
+                            icon: const Icon(
+                              Icons.more_vert,
+                              color: whiteColor,
+                            ));
+                      }))
                 ],
               ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: TextField(
-                controller: _searchController,
-                cursorColor: primaryColor,
-                style: const TextStyle(color: whiteColor),
-                decoration: const InputDecoration(
-                    hintText: "Search...",
-                    hintStyle: TextStyle(color: inputFilledTextColor),
-                    prefixIcon: Icon(
-                      Icons.search,
-                      color: inputFilledTextColor,
-                    ),
-                    border: OutlineInputBorder(),
-                    focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: primaryColor)),
-                    filled: true,
-                    fillColor: inputFilledColor),
-                onChanged: _searchTasks,
+              child: SizedBox(
+                height: 45,
+                child: TextField(
+
+                  controller: _searchController,
+                  cursorColor: primaryColor,
+                  style: const TextStyle(color: whiteColor),
+                  decoration: const InputDecoration(
+                      hintText: "Search...",
+                      hintStyle: TextStyle(color: inputFilledTextColor),
+                      prefixIcon: Icon(
+                        Icons.search,
+                        color: inputFilledTextColor,
+                      ),
+                      border: OutlineInputBorder(),
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: primaryColor)),
+                      filled: true,
+                      fillColor: inputFilledColor),
+                  onChanged: _searchTasks,
+                ),
               ),
             ),
             const SizedBox(height: 16),

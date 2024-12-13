@@ -49,7 +49,7 @@ class OtpSendView extends StatelessWidget {
                       ),
                       fillColor: inputFilledColor,
                       filled: true,
-                      hintText: "Enter your phone number...",
+                      hintText: "Enter your Robi/Airtel number...",
                       hintStyle: const TextStyle(color: inputFilledTextColor),
                       border: const OutlineInputBorder(),
                       focusedBorder: OutlineInputBorder(
